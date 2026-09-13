@@ -1,27 +1,33 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Fake News Detection</title>
-<style>
-body{font-family:Arial;text-align:center;background:#f2f2f2;padding:30px}
-.box{background:white;padding:30px;border-radius:15px;max-width:600px;margin:auto;box-shadow:0 0 15px gray}
-textarea{width:90%;height:120px;padding:10px;border-radius:5px}
-button{padding:12px 25px;background:#007bff;color:white;border:none;border-radius:8px;margin-top:15px;cursor:pointer;font-size:16px}
-.result{margin-top:20px;font-size:22px;font-weight:bold}
-</style>
+    <title>Fake News Detector</title>
+    <style>
+        body { font-family: Arial; background: #f0f2f5; text-align: center; padding: 30px; }
+        .box { background: white; max-width: 600px; margin: auto; padding: 25px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
+        textarea { width: 95%; height: 120px; padding: 10px; border-radius: 8px; border: 1px solid #ccc; }
+        button { background: #007bff; color: white; border: none; padding: 12px 25px; border-radius: 8px; cursor: pointer; margin-top: 15px; font-size: 16px; }
+        .result { margin-top: 20px; padding: 15px; border-radius: 10px; font-size: 20px; font-weight: bold; }
+        .fake { background: #ffdddd; color: #d8000c; border: 1px solid #d8000c; }
+        .real { background: #ddffdd; color: #270; border: 1px solid #270; }
+    </style>
 </head>
 <body>
-<div class="box">
-<h2>📰 Fake News Detector</h2>
-<form method="POST">
-<textarea name="news" placeholder="Paste news here to check..."></textarea><br>
-<button type="submit">Check Now</button>
-</form>
-{% if prediction %}
-<div class="result" style="color:{% if prediction=='Fake' %}red{% else %}green{% endif %}">
-Result: {{prediction}}
-</div>
-{% endif %}
-</div>
+    <div class="box">
+        <h2>📰 Fake News Detector</h2>
+        <form method="POST">
+            <textarea name="news" placeholder="Inga news ah paste pannu da machi...">{{ news_text }}</textarea><br>
+            <button type="submit">Check pannu da!</button>
+        </form>
+
+        {% if result %}
+            <div class="result {% if 'FAKE' in result %}fake{% else %}real{% endif %}">
+                {{ result }} <br>
+                {% if confidence %}
+                <small>Confidence: {{ confidence }}%</small>
+                {% endif %}
+            </div>
+        {% endif %}
+    </div>
 </body>
 </html>
